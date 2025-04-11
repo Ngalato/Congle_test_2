@@ -79,10 +79,11 @@ class _DockState<T> extends State<Dock<T>> {
           final item = entry.value;
 
           return DragTarget<int>(
-            onWillAccept: (fromIndex) => fromIndex != index,
-            onAccept: (fromIndex) {
+            onWillAcceptWithDetails: (dragDetails) => dragDetails.data != index,
+            onAcceptWithDetails: (dragDetails) {
+
               setState(() {
-                final movedItem = _items.removeAt(fromIndex);
+                final movedItem = _items.removeAt(dragDetails.data);
                 _items.insert(index, movedItem);
               });
             },
